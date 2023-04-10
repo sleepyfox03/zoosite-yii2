@@ -14,6 +14,7 @@ $form =ActiveForm::begin(['id'=>'form-addusers']);
   <?= $form->field($model, "phn_no")->label("Phone No");?>
   <?= $form->field($model, "role")->label("Role"); ?>
   <?= $form->field($model, "pass")->label("Password"); ?>
+  <?= $form->field($model,"image")->fileInput(); ?>
   <div class="form-group">
   <?= Button::widget([
       'label'=>'Submit',

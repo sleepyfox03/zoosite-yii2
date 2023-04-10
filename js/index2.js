@@ -7,6 +7,7 @@ function showZoo() {
         dataType: "html",
         success: function (response) {
             $("#table-container").html(response);
+            let table = new DataTable('#mytable1');
             $("#abc").html("");
         }
     });
@@ -92,6 +93,8 @@ function showAnimals() {
         dataType: "html",
         success: function (response) {
             $("#table-container").html(response);
+            let table = new DataTable('#mytable2');
+
             $("#abc").html("");
         }
     });
@@ -172,16 +175,24 @@ function addanimalsbtn() {
 
 
 function showUsers() { 
-
+    // console.log("showUsers");
+    // $(document).ready(function () {
+    //     // console.log("abc");
+    //     $('#table-id').DataTable();
+    // });
     $.ajax({
         type: "GET",
         url: "/zoo/user/view-user",
         dataType: "html",
         success: function (response) {
+            
             $("#table-container").html(response);
+            let table = new DataTable('#mytable');
             $("#abc").html("");
         }
+        
     });
+ 
 }
 function deleteUsers(id) { 
 

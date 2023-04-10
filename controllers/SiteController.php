@@ -10,7 +10,7 @@ use yii\filters\VerbFilter;
 use app\models\userlog;
 use app\models\ContactForm;
 use app\models\Zoo;
-
+use yii\web\UploadedFile;
 use app\models\user;
 use yii\db\Query;
 
@@ -19,9 +19,9 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
-    
-     
-  
+
+
+
 
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class SiteController extends Controller
     }
     public function actionIndex()
     {
-        return $this->redirect('/zoo/site/signup');
+        return $this->render('index');
     }
 
     /**
@@ -50,10 +50,10 @@ class SiteController extends Controller
      */
     public function actionDashboard()
     {
-        if(! isset(Yii::$app->session['username'])) { 
+        if (!isset(Yii::$app->session['username'])) {
             return $this->render('login');
         }
-        return $this->render('dashboard');
+        return $this->render('signup');
     }
 
 
@@ -64,37 +64,36 @@ class SiteController extends Controller
      */
     public function actionUserlogin()
     {
-        if( isset(Yii::$app->session['username'])) { 
+        if (isset(Yii::$app->session['username'])) {
             return $this->redirect('dashboard');
         }
-     $model  = new user();
+        $model = new user();
         if ($this->request->isPost) {
             $array = $this->request->post("user");
             $data = user::findOne(['email' => $array['email']]);
-            if($data->pass == $array['pass']) {
+            if ($data->pass == $array['pass']) {
                 $session = Yii::$app->session;
                 $session->open();
-                
+
                 $session['username'] = $array['email'];
                 return $this->redirect('dashboard');
                 // return $this->render('dashboard');
-             } 
-             else { 
+            } else {
                 return "error";
-             }
-            
-            
+            }
+
+
             // $ab=user::find()->where(['id'=>$id])->one()
-    //         // if ($model->validate()) {
-                // return $this->render('dashboard');
-    //         // }
+            //         // if ($model->validate()) {
+            // return $this->render('dashboard');
+            //         // }
         }
-        return $this->render('userlogin',['model'=>$model]);
-//         $sql=Animals::find()->where(['activity'=>1])->all();
+        return $this->render('userlogin', ['model' => $model]);
+        //         $sql=Animals::find()->where(['activity'=>1])->all();
 //         return $this->renderAjax('addanimals',['sql'=>$sql,'model'=>$model]);
 //     
-    
-}
+
+    }
     /**
      * Logout action.
      *
@@ -135,7 +134,7 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
-  
+
 
 
 
@@ -143,29 +142,41 @@ class SiteController extends Controller
     {
         $model = new user();
         if ($this->request->isPost) {
+
             $array = $this->request->post();
             $model->load($array);
             if ($model->validate()) {
                 $model->save();
+                $model->image = UploadedFile::getInstance($model, 'image');
+                if ($model->upload()) {
+                    return "success";
+                }
 
-                return $this->redirect('index');
-                
-                // return $this->redirect('/zoo/user/viewuser');
             }
-            
-            
+          
 
+
+
+
+            return "error";
+            // $sql = user::find()->where(['activity' => 1])->all();
         }
-        // $sql = user::find()->where(['activity' => 1])->all();
+        return $this->render('signup', ['model' => $model]);
 
-        return $this->render('signup', [ 'model' => $model]);
     }
 
 
-
-
+    public function actionUploadImage()
+    {
+        $model = new UploadImageForm();
+        if (Yii::$app->request->isPost) {
+            $model->image = UploadedFile::getInstance($model, 'image');
+            if ($model->upload()) {
+                // file is uploaded successfully
+                echo "File successfully uploaded";
+                return;
+            }
+        }
+        return $this->render('upload', ['model' => $model]);
+    }
 }
-
-
-
-

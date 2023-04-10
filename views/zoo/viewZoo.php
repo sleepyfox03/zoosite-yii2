@@ -24,10 +24,10 @@ use yii\helpers\Html;
  
     
     <a href=""></a>
-       <div class="container">
+       <div class="container table-responsive">
 
-        <table class="table table-bordered table-light table-sm">
-            <tr><th>Zoo ID</th>
+        <table class="table table-light table-striped table-hover" id="mytable1">
+          <thead>  <tr><th>Zoo ID</th>
                 <th>Zoo Name</th>
                 <th>State</th>
                 <th>City</th>
@@ -36,7 +36,8 @@ use yii\helpers\Html;
                 <th>Delete</th>
                 
             </tr>
-          
+</thead>
+<tbody>
     
      <?php
      
@@ -60,7 +61,7 @@ use yii\helpers\Html;
         <?php endforeach;?>
 
     
-            
+</tbody>        
         </table>
             </div>
        <div id="error">

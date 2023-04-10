@@ -14,6 +14,7 @@ use yii\helpers\Html;
 
 
 ?>
+
 <div>
         <!-- modal -->
      <!-- Button trigger modal -->
@@ -25,10 +26,11 @@ use yii\helpers\Html;
  
     
     <a href=""></a>
-       <div class="container">
+       <div class="container table-responsive">
 
-        <table class="table table-bordered table-light table-sm">
-            <tr><th>User ID</th>
+        <table class="table table-light table-striped table-hover" id="mytable">
+            <thead><tr><th>User ID</th>
+                <th>Profile</th>
                 <th>User Name</th>
                 <th>Email</th>
                 <th>Phone no</th>
@@ -37,7 +39,8 @@ use yii\helpers\Html;
                 <th>Delete</th>
                 
             </tr>
-          
+</thead>
+<tbody>
     
      <?php
      
@@ -46,21 +49,17 @@ use yii\helpers\Html;
             ?>
         <tr>
             <td><?php echo $post['user_id']; ?></td>
+            <td><?php echo $post['profile']; ?>
             <td><?php echo $post['uname']; ?></td>
             <td><?php echo $post['email']; ?></td>
             <td><?php echo $post->phn_no; ?></td>
             <td><?php echo $post->role; ?></td>
-           <td>
-            <button id="<?=$post['user_id']; ?>" class="btn1 btn-primary" onclick="editUsers(this.id)">Edit</button>
-            
-        </td><td>
-        <button id="<?=$post['user_id']; ?>" class="btn1 btn-primary" onclick="deleteUsers(this.id)">Delete</button>
- 
-            </td>
+           <td><button id="<?=$post['user_id']; ?>" class="btn1 btn-primary" onclick="editUsers(this.id)">Edit</button></td>
+           <td><button id="<?=$post['user_id']; ?>" class="btn1 btn-primary" onclick="deleteUsers(this.id)">Delete</button></td>
         </tr>
         <?php endforeach;?>
 
-    
+        </tbody>
             
         </table>
             </div>

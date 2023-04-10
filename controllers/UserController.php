@@ -5,8 +5,9 @@ namespace app\controllers;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+
 use yii\web\Response;
-use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Zoo;
@@ -61,14 +62,16 @@ class UserController extends Controller
         $model->email = $array['email'];
         $model->phn_no = $array['phn_no'];
         $model->role = $array['role'];
+        $model->pass = $array['pass'];
+        $model->profile = UploadedFile::getInstance($model, 'profile');
 
-        if ($model->validate()) {
+        // if ($model->validate()) {
             $model->save();
            
-            return "user added successfully";
+            // return "user added successfully";
             // return $this->redirect('viewuser');
-        }
-        print_r($model->getErrors());
+        // }
+        // print_r($model->getErrors());
         return "failure in adding user";
      
     }

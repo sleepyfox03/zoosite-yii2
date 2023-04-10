@@ -23,10 +23,10 @@ use yii\helpers\Html;
  
     
     <a href=""></a>
-       <div class="container">
+       <div class="container table-responsive">
 
-        <table class="table table-bordered table-light table-sm">
-            <tr><th>Animal ID</th>
+        <table class="table table-light table-striped table-hover" id="mytable2">
+<thead>      <tr><th>Animal ID</th>
                 <th>Animals Name</th>
                 <th>Scientific Name</th>
                 <th>Type</th>
@@ -38,7 +38,8 @@ use yii\helpers\Html;
                 <th>Delete</th>
             </tr>
           
-           
+</thead>
+<tbody>        
     <?php foreach ($data as $row): ?>
       <tr>
         <td><?= $row['animals_id'] ?></td>
@@ -59,7 +60,7 @@ use yii\helpers\Html;
          </td>
          </tr>
     <?php endforeach; ?>
-            
+    </tbody>       
         </table>
             </div>
        <div id="error">
