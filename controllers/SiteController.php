@@ -53,7 +53,7 @@ class SiteController extends Controller
         if (!isset(Yii::$app->session['username'])) {
             return $this->render('login');
         }
-        return $this->render('signup');
+        return $this->render('dashboard');
     }
 
 
